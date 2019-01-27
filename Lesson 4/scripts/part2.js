@@ -1,5 +1,5 @@
 var basket = [];
-var item = {};
+var itemBasket = {};
 var summ = 0;
 
 function countBasketPrice(basket) {
@@ -11,7 +11,7 @@ function countBasketPrice(basket) {
 
 // для автозаполнения массива объектов
 for (var i = 0; i < 5; i++){
-    basket[i] = item = {
+    basket[i] = itemBasket = {
         itemDescr: "Item" + i,
         itemCount: i + 1,
         itemPrice: i * 100,
