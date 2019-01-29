@@ -5,7 +5,7 @@ var textCounter = document.createElement("p");
 
 blackBlock.className = "black";
 whiteBlock.className = "white";
-textCounter.className = "counter";
+textCounter.className = "counterNum";
 
 function generateWhiteBlack() {
     for (var j = 0; j < 8; j++){
@@ -33,6 +33,7 @@ function generateBlackWhite() {
 
 function generateCounterNumber(count) {
     var counter = textCounter.cloneNode(true);
+    counter.setAttribute("class", "counter counter-left");
     counter.textContent = count;
     parentBlock.appendChild(counter);
 }
@@ -40,6 +41,7 @@ function generateCounterNumber(count) {
 function generateCounterLetter(count) {
     var array = "ABCDEFGH";
     var counter = textCounter.cloneNode(true);
+    counter.setAttribute("class", "counter counter-top");
     counter.textContent = array[count];
     parentBlock.appendChild(counter);
 }
