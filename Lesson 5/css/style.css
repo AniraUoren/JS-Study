@@ -2,3 +2,15 @@
     display: grid;
     grid-template: repeat(8, 100px) / repeat(8, 100px);
 }
+
+.black{
+    border-collapse: collapse;
+    border: 1px solid #cccccc;
+    background-color: #000000;
+}
+
+.white{
+    border-collapse: collapse;
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+}
