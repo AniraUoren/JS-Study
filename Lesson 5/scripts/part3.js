@@ -1,16 +1,42 @@
-var product = {};
 var $catalogBlock = document.getElementById("catalog");
+var $catalog = [];
 
-function randomInteger(min, max) {
-    var rand = min - 0.5 + Math.random() * (max - min + 1);
-    rand = Math.round(rand);
-    return rand;
+function createItemDescription(counter) {
+    return ("Item " + counter);
 }
 
-function createProductObject(counter) {
-        product.description = "Item " + i;
-        product.price = i * 100;
-        product.quantity = randomInteger(0 , 10);
+function createItemPrice(counter) {
+    return (counter * 100);
 }
 
-//create objects array
+function createItemQuantity(counter) {
+    return (counter * 10);
+}
+
+function createCatalogItem(counter) {
+    var $catalogItem = document.createElement("div");
+    var $description = document.createElement("p");
+    var $price = document.createElement("p");
+    var $quantity = document.createElement("p");
+
+    $catalogItem.className = "block";
+    $description.className = "text";
+    $price.className = "price";
+    $quantity.className = "text";
+
+    $description.textContent = createItemDescription(counter);
+    $price.textContent = createItemPrice(counter);
+    $quantity.textContent = createItemQuantity(counter);
+
+    $catalogItem.appendChild($description);
+    $catalogItem.appendChild($price);
+    $catalogItem.appendChild($quantity);
+
+    return ($catalogItem);
+}
+
+for (var i = 0; i < 5; i ++){
+    $catalog[i] = createCatalogItem(i + 1);
+    $catalogBlock.appendChild($catalog[i]);
+}
+
