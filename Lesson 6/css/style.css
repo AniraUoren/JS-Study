@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto Condensed", sans-serif; }
+
+.wrapper {
+  width: 1000px;
+  margin: 0 auto; }
+
+.header {
+  background-color: #cccccc; }
+
+.container {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.logo_link {
+  font-family: "Luckiest Guy", cursive;
+  text-decoration: none;
+  font-size: 50px;
+  color: #555555; }
+
+.cart {
+  position: relative; }
+  .cart_link {
+    text-decoration: none;
+    font-size: 50px;
+    color: #555555; }
+    .cart_link:hover {
+      color: #ffffff; }
+  .cart_popup {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    padding: 10px;
+    z-index: 5; }
+    .cart_popup_element {
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #cccccc; }
+      .cart_popup_element_img {
+        max-width: 100px;
+        height: 100px;
+        margin-right: 15px; }
+      .cart_popup_element_name {
+        width: 200px;
+        font-size: 20px; }
+      .cart_popup_element_quantity {
+        font-size: 20px;
+        padding: 0 20px;
+        position: relative; }
+        .cart_popup_element_quantity:after {
+          content: "+";
+          transform: rotate(45deg);
+          position: absolute;
+          right: -5px; }
+      .cart_popup_element_price {
+        font-size: 20px;
+        margin-left: 20px; }
+    .cart_popup_total {
+      display: flex;
+      justify-content: flex-end; }
+      .cart_popup_total-description {
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase; }
+      .cart_popup_total-price {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 10px 0 20px; }
+  .cart:hover .cart_popup {
+    display: block; }
+
+.main {
+  background-color: #dddddd; }
+
+.catalog_header {
+  font-size: 40px;
+  font-style: italic;
+  padding: 20px 0; }
+
+.catalog_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding-bottom: 50px; }
+
+.shadow {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: auto; }
+
+.catalog_item {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #000000;
+  position: relative; }
+  .catalog_item:hover {
+    box-shadow: 5px 3px 5px #555555; }
+  .catalog_item_img {
+    width: 260px; }
+  .catalog_item_name {
+    margin-top: 15px; }
+  .catalog_item_description {
+    margin-top: 15px;
+    font-style: italic; }
+  .catalog_item_show {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 35%;
+    z-index: 5; }
+    .catalog_item_show_link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 30px;
+      background-color: #f16d7f;
+      border-radius: 15px;
+      color: #ffffff;
+      text-decoration: none;
+      text-transform: uppercase; }
+      .catalog_item_show_link:hover {
+        box-shadow: 5px 3px 5px #555555; }
+    .catalog_item_show_button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 30px;
+      background-color: #f16d7f;
+      border-radius: 15px;
+      margin-top: 10px;
+      color: #ffffff;
+      text-decoration: none;
+      text-transform: uppercase; }
+      .catalog_item_show_button:hover {
+        box-shadow: 5px 3px 5px #555555; }
+  .catalog_item:hover .shadow {
+    display: block; }
+  .catalog_item:hover .catalog_item_show {
+    display: flex; }
+
+.footer {
+  height: 200px; }
+  .footer_p {
+    font-family: "Luckiest Guy", cursive;
+    text-decoration: none;
+    font-size: 50px;
+    color: #555555;
+    margin-top: 50px; }
+
+/*# sourceMappingURL=style.css.map */
