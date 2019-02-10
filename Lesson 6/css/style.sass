@@ -3,6 +3,9 @@
   padding: 0
   font-family: 'Roboto Condensed', sans-serif
 
+.no-display
+  display: none !important
+
 .wrapper
   width: 1000px
   margin: 0 auto
@@ -31,6 +34,20 @@
     color: #555555
     &:hover
       color: #ffffff
+  &-counter
+    position: absolute
+    top: 7px
+    right: -7px
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #f16d7f
+    width: 20px
+    height: 20px
+    border-radius: 10px
+    color: #ffffff
+    font-size: 13px
+    font-weight: 700
   &_popup
     display: none
     position: absolute
@@ -40,6 +57,11 @@
     border: 1px solid #000000
     padding: 10px
     z-index: 5
+    &_empty
+      width: 100%
+      font-size: 18px
+      font-weight: 700
+      text-align: left
     &_element
       padding: 10px
       display: flex
@@ -100,8 +122,9 @@
   left: 0
   width: 100%
   height: 100%
-  background-color: rgba(0, 0, 0, 0.5)
+  background-color: rgba(0, 0, 0, 0.7)
   cursor: auto
+  z-index: 2
 .catalog_item
   padding: 10px
   display: flex
@@ -118,12 +141,36 @@
   &_description
     margin-top: 15px
     font-style: italic
+  &_price
+    width: 100%
+    font-size: 27px
+    font-weight: 700
+    text-align: center
+    position: relative
+    &:after
+      content: ""
+      width: 100%
+      height: 1px
+      background-color: #000000
+      position: absolute
+      top: 50%
+      left: 0
+    & span
+      padding: 0 5px
+      position: relative
+      background-color: #dddddd
+      z-index: 1
+  &_price-descr
+      width: 100%
+      font-size: 27px
+      font-weight: 700
+      text-align: center
   &_show
     display: none
     flex-direction: column
     position: absolute
     top: 35%
-    z-index: 5
+    z-index: 3
     &_link
       display: flex
       justify-content: center
@@ -136,7 +183,7 @@
       text-decoration: none
       text-transform: uppercase
       &:hover
-        box-shadow: 5px 3px 5px #555555
+        box-shadow: 5px 3px 5px #aaaaaa
     &_button
       display: flex
       justify-content: center
@@ -150,12 +197,119 @@
       text-decoration: none
       text-transform: uppercase
       &:hover
-        box-shadow: 5px 3px 5px #555555
+        box-shadow: 5px 3px 5px #aaaaaa
 
   &:hover .shadow
     display: block
   &:hover .catalog_item_show
     display: flex
+
+.modal-window
+  position: absolute
+  width: 1000px
+  top: 120px
+  left: 50%
+  margin-left: -25%
+  z-index: 4
+  background-color: #888888
+  border: 2px solid #000000
+
+.overlay
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100vh
+  background-color: rgba(0, 0, 0, 0.7)
+  overflow: auto
+  z-index: 4
+
+.gallery
+  display: flex
+  flex-direction: column
+  align-items: center
+  position: relative
+  &-pic_big
+    margin: 0 15px
+    margin-top: 30px
+    border: 2px solid #555555
+    padding: 15px
+    background-color: #ffffff
+    &_img
+      max-width: 906px
+      max-height: 724px
+  &-pic_small
+    padding: 15px
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    &_img
+      max-width: 150px
+      max-height: 200px
+      padding: 15px
+      border: 2px solid #555555
+      margin: 0 10px
+      background-color: #ffffff
+      &:first-of-type
+        margin-left: 0
+      &:last-of-type
+        margin-right: 0
+      &:hover
+        border-color: #000000
+
+.gallery-close
+  position: absolute
+  color: #000000
+  top: -20px
+  right: -60px
+  font-size: 20px
+  font-weight: 700
+  text-transform: uppercase
+  cursor: pointer
+  &:hover
+    text-decoration: underline
+
+.arrow-left
+  position: absolute
+  top: 50%
+  left: -90px
+  color: #ffffff
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 60px
+  height: 60px
+  font-size: 40px
+  border: 5px solid #ffffff
+  border-radius: 40px
+  cursor: pointer
+  &:hover
+    border-color: #f16d7f
+    color: #f16d7f
+
+
+.arrow-right
+  position: absolute
+  top: 50%
+  right: -90px
+  color: #ffffff
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 60px
+  height: 60px
+  font-size: 40px
+  border: 5px solid #ffffff
+  border-radius: 40px
+  cursor: pointer
+  &:hover
+    border-color: #f16d7f
+    color: #f16d7f
+
+.active_pic
+  border-color: #f16d7f
+  &:hover
+    border-color: #f16d7f
 
 .footer
   height: 200px

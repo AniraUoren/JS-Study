@@ -115,12 +115,37 @@ function createCartElements(){
 
 }
 
+function addCartCounter(){
+    var count = 0;
+    var cartCounter = document.createElement("span");
+
+    for (var i = 0; i < cartElements.length; i++){
+        count += cartElements[i].quantity;
+    }
+
+    console.log(count); //отладка
+
+    //условие, чтоб не плодить в HTML много span'ов
+    if (document.querySelector(".cart-counter") !== null){
+        document.querySelector(".cart").removeChild(document.querySelector(".cart-counter"));
+    }
+
+    cartCounter.innerText = count;
+    if (count !== 0){
+        cartCounter.classList.add("cart-counter");
+        document.querySelector(".cart").insertBefore(cartCounter, document.querySelector(".cart_link"));
+    }
+
+    console.log(cartCounter); //отладка
+
+}
+
 $catalog.addEventListener("click", function(event){
     var target = event.target;
     var catalogItem = target.parentNode.parentNode;
 
-    console.log(target);
-    console.log(target.innerText);
+    console.log(target);                // отладка
+    console.log(target.innerText);      // отладка
     switch(target.innerText){
         case "BUY":{
             var itemObject = {};
@@ -137,6 +162,8 @@ $catalog.addEventListener("click", function(event){
             }
 
             addElementToCart(itemObject);
+
+            addCartCounter();
 
             createCartElements();
             break;
@@ -156,10 +183,12 @@ $catalog.addEventListener("click", function(event){
 
 createCartElements();
 
-//task 2 - gallery
+//TASK 2 - GALLERY
+
 var modalWindowGallery = document.getElementById("modal-gallery");
 var overlay = document.getElementById("overlay");
 var bigElementSRCValue = modalWindowGallery.querySelector(".gallery-pic_big_img").getAttribute("src");
+var index = 0;
 
 function getGallerySmallPictures(){
     var gallerySmallPictures = modalWindowGallery.querySelectorAll(".gallery-pic_small_img");
@@ -170,6 +199,26 @@ function getGallerySmallPictures(){
     }
 
     return (galleryPicSRCArray);
+}
+
+function actLeftButton(){
+    var smallPicArray = getGallerySmallPictures();
+    var bigGalleryPicture = modalWindowGallery.querySelector(".gallery-pic_big_img");
+
+    index = (smallPicArray.length + (-- index)%smallPicArray.length)%smallPicArray.length;
+    bigGalleryPicture.setAttribute("src", smallPicArray[index]);
+
+    console.log(index);             // отладка
+}
+
+function actRightButton() {
+    var smallPicArray = getGallerySmallPictures();
+    var bigGalleryPicture = modalWindowGallery.querySelector(".gallery-pic_big_img");
+
+    index = (++index)%smallPicArray.length;
+    bigGalleryPicture.setAttribute("src", smallPicArray[index]);
+
+    console.log(index);             // отладка
 }
 
 function deleteActiveClassSmallPics() {
@@ -190,7 +239,7 @@ function showSmallPicInBigBlock(clickedElement){
 
     deleteActiveClassSmallPics();
 
-    if (clickedElement.getAttribute("src") == modalWindowGallery.querySelector(".gallery-pic_big_img").getAttribute("src")){
+    if (clickedElement.getAttribute("src") === modalWindowGallery.querySelector(".gallery-pic_big_img").getAttribute("src")){
         clickedElement.classList.add("active_pic");
     }
 }
@@ -216,10 +265,12 @@ modalWindowGallery.addEventListener("click", function(event){
         }
         case ("arrow-left"):{
             console.log("left");
+            actLeftButton();
             break;
         }
         case ("arrow-right"):{
             console.log("right");
+            actRightButton();
             break;
         }
     }
