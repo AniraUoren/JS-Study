@@ -1,0 +1,321 @@
+*
+  margin: 0
+  padding: 0
+  font-family: 'Roboto Condensed', sans-serif
+
+.no-display
+  display: none !important
+
+.wrapper
+  width: 1000px
+  margin: 0 auto
+
+.header
+  background-color: #cccccc
+
+.container
+  height: 100px
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+.logo
+  &_link
+    font-family: 'Luckiest Guy', cursive
+    text-decoration: none
+    font-size: 50px
+    color: #555555
+
+.cart
+  position: relative
+  &_link
+    text-decoration: none
+    font-size: 50px
+    color: #555555
+    &:hover
+      color: #ffffff
+  &-counter
+    position: absolute
+    top: 7px
+    right: -7px
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #f16d7f
+    width: 20px
+    height: 20px
+    border-radius: 10px
+    color: #ffffff
+    font-size: 13px
+    font-weight: 700
+  &_popup
+    display: none
+    position: absolute
+    top: 60px
+    right: 0
+    background-color: #ffffff
+    border: 1px solid #000000
+    padding: 10px
+    z-index: 5
+    &_empty
+      width: 100%
+      font-size: 18px
+      font-weight: 700
+      text-align: left
+    &_element
+      padding: 10px
+      display: flex
+      justify-content: space-between
+      border-bottom: 2px solid #cccccc
+      &_img
+        max-width: 100px
+        height: 100px
+        margin-right: 15px
+      &_name
+        width: 200px
+        font-size: 20px
+      &_quantity
+        font-size: 20px
+        padding: 0 20px
+        position: relative
+        &:after
+          content: "+"
+          transform: rotate(45deg)
+          position: absolute
+          right: -5px
+      &_price
+        font-size: 20px
+        margin-left: 20px
+    &_total
+      display: flex
+      justify-content: flex-end
+      &-description
+        font-size: 20px
+        font-weight: 700
+        text-transform: uppercase
+      &-price
+        font-size: 20px
+        font-weight: 700
+        margin: 0 10px 0 20px
+
+  &:hover .cart_popup
+    display: block
+
+.main
+  background-color: #dddddd
+
+.catalog_header
+  font-size: 40px
+  font-style: italic
+  padding: 20px 0
+
+.catalog_container
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  grid-gap: 20px
+  padding-bottom: 50px
+
+.shadow
+  display: none
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background-color: rgba(0, 0, 0, 0.7)
+  cursor: auto
+  z-index: 2
+.catalog_item
+  padding: 10px
+  display: flex
+  flex-direction: column
+  align-items: center
+  border: 1px solid #000000
+  position: relative
+  &:hover
+    box-shadow: 5px 3px 5px #555555
+  &_img
+    width: 260px
+  &_name
+    margin-top: 15px
+  &_description
+    margin-top: 15px
+    font-style: italic
+  &_price
+    width: 100%
+    font-size: 27px
+    font-weight: 700
+    text-align: center
+    position: relative
+    &:after
+      content: ""
+      width: 100%
+      height: 1px
+      background-color: #000000
+      position: absolute
+      top: 50%
+      left: 0
+    & span
+      padding: 0 5px
+      position: relative
+      background-color: #dddddd
+      z-index: 1
+  &_price-descr
+      width: 100%
+      font-size: 27px
+      font-weight: 700
+      text-align: center
+  &_show
+    display: none
+    flex-direction: column
+    position: absolute
+    top: 35%
+    z-index: 3
+    &_link
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 100px
+      height: 30px
+      background-color: #f16d7f
+      border-radius: 15px
+      color: #ffffff
+      text-decoration: none
+      text-transform: uppercase
+      &:hover
+        box-shadow: 5px 3px 5px #aaaaaa
+    &_button
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 100px
+      height: 30px
+      background-color: #f16d7f
+      border-radius: 15px
+      margin-top: 10px
+      color: #ffffff
+      text-decoration: none
+      text-transform: uppercase
+      &:hover
+        box-shadow: 5px 3px 5px #aaaaaa
+
+  &:hover .shadow
+    display: block
+  &:hover .catalog_item_show
+    display: flex
+
+.modal-window
+  position: absolute
+  width: 1000px
+  top: 120px
+  left: 50%
+  margin-left: -25%
+  z-index: 4
+  background-color: #888888
+  border: 2px solid #000000
+
+.overlay
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100vh
+  background-color: rgba(0, 0, 0, 0.7)
+  overflow: auto
+  z-index: 4
+
+.gallery
+  display: flex
+  flex-direction: column
+  align-items: center
+  position: relative
+  &-pic_big
+    margin: 0 15px
+    margin-top: 30px
+    border: 2px solid #555555
+    padding: 15px
+    background-color: #ffffff
+    &_img
+      max-width: 906px
+      max-height: 724px
+  &-pic_small
+    padding: 15px
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    &_img
+      max-width: 150px
+      max-height: 200px
+      padding: 15px
+      border: 2px solid #555555
+      margin: 0 10px
+      background-color: #ffffff
+      &:first-of-type
+        margin-left: 0
+      &:last-of-type
+        margin-right: 0
+      &:hover
+        border-color: #000000
+
+.gallery-close
+  position: absolute
+  color: #000000
+  top: -20px
+  right: -60px
+  font-size: 20px
+  font-weight: 700
+  text-transform: uppercase
+  cursor: pointer
+  &:hover
+    text-decoration: underline
+
+.arrow-left
+  position: absolute
+  top: 50%
+  left: -90px
+  color: #ffffff
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 60px
+  height: 60px
+  font-size: 40px
+  border: 5px solid #ffffff
+  border-radius: 40px
+  cursor: pointer
+  &:hover
+    border-color: #f16d7f
+    color: #f16d7f
+
+
+.arrow-right
+  position: absolute
+  top: 50%
+  right: -90px
+  color: #ffffff
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 60px
+  height: 60px
+  font-size: 40px
+  border: 5px solid #ffffff
+  border-radius: 40px
+  cursor: pointer
+  &:hover
+    border-color: #f16d7f
+    color: #f16d7f
+
+.active_pic
+  border-color: #f16d7f
+  &:hover
+    border-color: #f16d7f
+
+.footer
+  height: 200px
+  &_p
+    font-family: 'Luckiest Guy', cursive
+    text-decoration: none
+    font-size: 50px
+    color: #555555
+    margin-top: 50px
