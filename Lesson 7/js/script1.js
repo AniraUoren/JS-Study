@@ -1,6 +1,6 @@
 var $catalog = document.getElementById("catalog"); //блок catalog
 var $cart = document.getElementById("cart"); //cart block from html
-var cartElements =[]; //массив элементов в корзине
+window.cartElements =[]; //массив элементов в корзине
 var elementTotal = document.createElement("div");
 
 
@@ -123,7 +123,6 @@ function addCartCounter(){
         count += cartElements[i].quantity;
     }
 
-    console.log(count); //отладка
 
     //условие, чтоб не плодить в HTML много span'ов
     if (document.querySelector(".cart-counter") !== null){
@@ -136,7 +135,6 @@ function addCartCounter(){
         document.querySelector(".cart").insertBefore(cartCounter, document.querySelector(".cart_link"));
     }
 
-    console.log(cartCounter); //отладка
 
 }
 
@@ -144,8 +142,6 @@ $catalog.addEventListener("click", function(event){
     var target = event.target;
     var catalogItem = target.parentNode.parentNode;
 
-    console.log(target);                // отладка
-    console.log(target.innerText);      // отладка
     switch(target.innerText){
         case "BUY":{
             var itemObject = {};
@@ -208,7 +204,6 @@ function actLeftButton(){
     index = (smallPicArray.length + (-- index)%smallPicArray.length)%smallPicArray.length;
     bigGalleryPicture.setAttribute("src", smallPicArray[index]);
 
-    console.log(index);             // отладка
 }
 
 function actRightButton() {
@@ -218,7 +213,6 @@ function actRightButton() {
     index = (++index)%smallPicArray.length;
     bigGalleryPicture.setAttribute("src", smallPicArray[index]);
 
-    console.log(index);             // отладка
 }
 
 function deleteActiveClassSmallPics() {
@@ -247,9 +241,6 @@ function showSmallPicInBigBlock(clickedElement){
 modalWindowGallery.addEventListener("click", function(event){
     var target = event.target;
 
-    console.log(target); // отладка
-    console.log(target.parentNode); // отладка
-    
     if (target.getAttribute("class") === "gallery-pic_small_img"){
         showSmallPicInBigBlock(target);
     }
@@ -275,3 +266,11 @@ modalWindowGallery.addEventListener("click", function(event){
         }
     }
 });
+
+//cart.html
+
+function createCartHTMLElement(){
+    var element = document.createElement("div");
+
+
+}
