@@ -20,36 +20,22 @@
 <main class="main">
     <div class="wrapper">
         <h3 class="catalog_header">Cart</h3>
-        <div class="cart-container">
+        <div class="cart-container" id="cart-container">
             <div class="cart-block">
                 <div class="cart-block_header">
                     <h3 class="cart-block_h3">Состав корзины</h3>
-                    <button class="cart-block_button">Далее</button></div>
+                    <button class="cart-block_button" id="cartButtonBefore1">Назад</button>
+                    <button class="cart-block_button" id="cartButtonAfter1">Далее</button>
                 </div>
-                <div class="cart-block_main">
-                    <div class="cart-block_element">
-                        <img src="img/item.jpg" alt="Item" class="cart-block_element_img">
-                        <p class="cart-block_element_name">Lorem ipsum dolor sit amet.</p>
-                        <p class="cart-block_element_quantity">1</p>
-                        <p class="cart-block_element_price">100</p>
-                        <button class="cart-block_element_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                        <button class="cart-block_element_button"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-                    </div>
-                    <div class="cart-block_element">
-                        <img src="img/item.jpg" alt="Item" class="cart-block_element_img">
-                        <p class="cart-block_element_name">Lorem ipsum dolor sit amet.</p>
-                        <p class="cart-block_element_quantity">1</p>
-                        <p class="cart-block_element_price">100</p>
-                        <button class="cart-block_element_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                        <button class="cart-block_element_button"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-                    </div>
+                <div class="cart-block_main" id="hiddenElement1">
                 </div>
             <div class="cart-block">
                 <div class="cart-block_header">
                     <h3 class="cart-block_h3">Адрес доставки</h3>
-                    <button class="cart-block_button">Далее</button>
+                    <button class="cart-block_button" id="cartButtonBefore2">Назад</button>
+                    <button class="cart-block_button" id="cartButtonAfter2">Далее</button>
                 </div>
-                <div class="cart-block_main">
+                <div class="cart-block_main no-display" id="hiddenElement2">
                     <form action="#" class="form_shipping" id="form_shipping">
                         <input type="text" placeholder="Страна">
                         <input type="text" placeholder="Область">
@@ -63,17 +49,18 @@
             <div class="cart-block">
                 <div class="cart-block_header">
                     <h3 class="cart-block_h3">Комментарий</h3>
-                    <button class="cart-block_button">Готово</button>
+                    <button class="cart-block_button" id="cartButtonBefore3">Назад</button>
+                    <button class="cart-block_button" id="cartButtonAfter3">Готово</button>
                 </div>
-                <div class="cart-block_main">
+                <div class="cart-block_main no-display" id="hiddenElement3">
                     <form action="#" class="form_comment" id="form_comment">
                         <textarea name="form_comment" rows="10" placeholder="Комментарий"></textarea>
                     </form>
                 </div>
             </div>
         </div>
+        </div>
     </div>
-
 </main>
 <footer class="footer">
     <div class="wrapper">
@@ -82,7 +69,7 @@
 </footer>
 
 
-<script src="js/script1.js"></script>
+<script src="js/script_cart.js"></script>
 
 </body>
 </html>

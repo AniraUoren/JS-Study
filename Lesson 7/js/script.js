@@ -1,124 +1,292 @@
-var $cart = document.getElementById("cart"); //cart block from html
-var cartElements =[];
-// var catalogLength = document.getElementsByClassName("catalog_item").length; //вспомогательная переменная для получения длинны массива элементов
 var $catalog = document.getElementById("catalog"); //блок catalog
-// var itemsArray = []; //массив объектов с названием и ценой каждого елемента каталога
-//
-// //получение данных я решила сделать считыванием элементов со страницы
-//
-// function getElementCatalog(counter) {
-//     var itemObject = {};
-//     itemObject.name = $catalog.getElementsByClassName("catalog_item_name")[counter].innerText;
-//     itemObject.image = $catalog.getElementsByClassName("catalog_item_img")[counter].getAttribute("src");
-//     itemObject.price = parseInt($catalog.getElementsByClassName("catalog_item_price")[counter].innerText);
-//     itemsArray[counter] = itemObject;
-//     return itemObject;
-// }
-//
-// function getElementsArray() {
-//     for (var i = 0; i < catalogLength; i++){
-//         itemsArray[i] = getElementCatalog(i);
-//     }
-//
-// }
-//
-// getElementsArray();
+var $cart = document.getElementById("cart"); //cart block from html
+var cartElements =[]; //массив элементов в корзине
+var elementTotal = document.createElement("div");
 
-//проверка на наличие товара в корзине
 
-function isItemAddYet(itemObject) {
-    var quantity = 0;
-
-    if (cartElements.length === 0){
-        cartElements[0] = itemObject;
-        cartElements[0].name = itemObject.name;
-        cartElements[0].image = itemObject.image;
-        cartElements[0].quantity = 1;
-        cartElements[0].price = itemObject.price;
-
-        quantity = cartElements[0].quantity;
-
-    } else {
-        for (var i = 0; i < cartElements.length; i++) {
-            if (cartElements[i].name === itemObject.name && cartElements[i].price === itemObject.price)
-            {
-                cartElements[i].quantity++;
-
-                quantity = cartElements[i].quantity;
-
-            } else {
-                var length = cartElements.length;
-                cartElements[length] = itemObject;
-                cartElements[length].name = itemObject.name;
-                cartElements[length].image = itemObject.image;
-                cartElements[length].quantity = 1;
-                cartElements[length].price = itemObject.price;
-
-                quantity = cartElements[length].quantity;
-            }
-
+function isElementInArray(itemObject) {
+    var index;
+    for (var i = 0; i < cartElements.length; i++){
+        if (cartElements[i].price === itemObject.price){
+            index = i;
         }
     }
-    return (quantity);
+
+    return (index);
 }
 
-// создание элемента для корзины
+function addElementToCart(itemObject){
+    var index = isElementInArray(itemObject);
 
-function createCartElement(itemObject) {
+    if (index === undefined){
+        cartElements.push(itemObject);
+    }else {
+        cartElements[index].quantity ++;
+    }
+}
+
+function createTotalElement() {
+    var totalPrice = 0;
+    var elementTotalDescription = document.createElement("p");
+    var elementTotalPrice = document.createElement("p");
+
+    elementTotal.className = "cart_popup_total";
+    elementTotalDescription.className = "cart_popup_total-description";
+    elementTotalPrice.className = "cart_popup_total-price";
+
+    for (var i = 0; i < cartElements.length; i++){
+        totalPrice += cartElements[i].quantity * cartElements[i].price;
+    }
+
+    deleteTotalElement();
+
+    elementTotalDescription.innerText = "Total price:";
+    elementTotalPrice.innerText = totalPrice;
+    elementTotal.appendChild(elementTotalDescription);
+    elementTotal.appendChild(elementTotalPrice);
+}
+
+function deleteTotalElement() {
+    var deleteDescription = elementTotal.querySelector(".cart_popup_total-description");
+    var deletePrice = elementTotal.querySelector(".cart_popup_total-price");
+
+    if (deleteDescription !== null && deletePrice !== null){
+        elementTotal.removeChild(deleteDescription);
+        elementTotal.removeChild(deletePrice);
+    }
+}
+
+function createCartElement(count) {
     var cartElement = document.createElement("div");
     var cartElementName = document.createElement("p");
     var cartElementImage = document.createElement("img");
     var cartElementQuantity = document.createElement("p");
     var cartElementPrice = document.createElement("p");
-    var elementTotal = document.getElementById("total");
 
     cartElement.className = "cart_popup_element";
 
     cartElementName.className = "cart_popup_element_name";
-    cartElementName.innerText = itemObject.name;
-
-    console.log(cartElementName);   //отладка
+    cartElementName.innerText = cartElements[count].name;
 
     cartElementImage.className = "cart_popup_element_img";
-    cartElementImage.setAttribute("src", itemObject.image);
-
-    console.log(cartElementImage);  //отладка
-
-    cartElementPrice.className = "cart_popup_element_price";
-    cartElementPrice.innerText = itemObject.price;
-
-    console.log(cartElementPrice);  //отладка
+    cartElementImage.setAttribute("src", cartElements[count].image);
 
     cartElementQuantity.className = "cart_popup_element_quantity";
-    cartElementQuantity.innerText = isItemAddYet(itemObject);
+    cartElementQuantity.innerText = cartElements[count].quantity;
+
+    cartElementPrice.className = "cart_popup_element_price";
+    cartElementPrice.innerText = cartElements[count].price;
 
     cartElement.appendChild(cartElementImage);
     cartElement.appendChild(cartElementName);
     cartElement.appendChild(cartElementQuantity);
     cartElement.appendChild(cartElementPrice);
 
-    $cart.insertBefore(cartElement, elementTotal);
+    return(cartElement);
 }
 
+function deleteCartElements() {
+    var deleteItemElement = $cart.querySelectorAll(".cart_popup_element");
+
+    for (var i = 0; i < deleteItemElement.length; i++){
+        $cart.removeChild(deleteItemElement[i]);
+    }
+}
+
+function createCartElements(){
+    var emptyCart = document.createElement("p");
+
+    emptyCart.className = "cart_popup_empty";
+
+    if(cartElements.length === 0){
+
+        emptyCart.innerText = "Cart Empty";
+        $cart.appendChild(emptyCart);
+    }
+
+    createTotalElement();
+    $cart.appendChild(elementTotal);
+
+    deleteCartElements();
+
+    for (var i = 0; i < cartElements.length; i++){
+        $cart.insertBefore(createCartElement(i), elementTotal);
+    }
+
+}
+
+function addCartCounter(){
+    var count = 0;
+    var cartCounter = document.createElement("span");
+
+    for (var i = 0; i < cartElements.length; i++){
+        count += cartElements[i].quantity;
+    }
+
+
+    //условие, чтоб не плодить в HTML много span'ов
+    if (document.querySelector(".cart-counter") !== null){
+        document.querySelector(".cart").removeChild(document.querySelector(".cart-counter"));
+    }
+
+    cartCounter.innerText = count;
+    if (count !== 0){
+        cartCounter.classList.add("cart-counter");
+        document.querySelector(".cart").insertBefore(cartCounter, document.querySelector(".cart_link"));
+    }
+
+
+}
 
 $catalog.addEventListener("click", function(event){
     var target = event.target;
-    console.log(target);                        //отладка
-    console.log(target.parentNode.parentNode);  //отладка
     var catalogItem = target.parentNode.parentNode;
 
-    var itemObject = {};
+    switch(target.innerText){
+        case "BUY":{
+            var itemObject = {};
 
-    itemObject.name = catalogItem.getElementsByClassName("catalog_item_name")[0].innerText;
-    itemObject.image = catalogItem.getElementsByClassName("catalog_item_img")[0].getAttribute("src");
-    itemObject.price = catalogItem.getElementsByClassName("catalog_item_price")[0].innerText;
+            itemObject.name = catalogItem.getElementsByClassName("catalog_item_name")[0].innerText;
+            itemObject.image = catalogItem.getElementsByClassName("catalog_item_img")[0].getAttribute("src");
+            itemObject.quantity = 1;
+            itemObject.price = catalogItem.getElementsByClassName("catalog_item_price")[0].innerText;
 
-    console.log(itemObject);
+            var emptyElement = $cart.querySelector(".cart_popup_empty");
 
-    createCartElement(itemObject);
-    return(itemObject);
+            if (emptyElement !== null){
+                $cart.removeChild(emptyElement);
+            }
+
+            addElementToCart(itemObject);
+
+            addCartCounter();
+
+            createCartElements();
+            break;
+        }
+
+        case "SHOW MORE":{
+
+            overlay.classList.remove("no-display");
+            modalWindowGallery.classList.remove("no-display");
+
+            break;
+        }
+
+    }
+
 });
 
+createCartElements();
 
+//TASK 2 - GALLERY
 
+var modalWindowGallery = document.getElementById("modal-gallery");
+var overlay = document.getElementById("overlay");
+var bigElementSRCValue = modalWindowGallery.querySelector(".gallery-pic_big_img").getAttribute("src");
+var index = 0;
+
+function getGallerySmallPictures(){
+    var gallerySmallPictures = modalWindowGallery.querySelectorAll(".gallery-pic_small_img");
+    var galleryPicSRCArray = [];
+
+    for (var i = 0; i < gallerySmallPictures.length; i++){
+        galleryPicSRCArray[i] = gallerySmallPictures[i].getAttribute("src");
+    }
+
+    return (galleryPicSRCArray);
+}
+
+function actLeftButton(){
+    var smallPicArray = getGallerySmallPictures();
+    var bigGalleryPicture = modalWindowGallery.querySelector(".gallery-pic_big_img");
+
+    index = (smallPicArray.length + (-- index)%smallPicArray.length)%smallPicArray.length;
+    bigGalleryPicture.setAttribute("src", smallPicArray[index]);
+
+}
+
+function actRightButton() {
+    var smallPicArray = getGallerySmallPictures();
+    var bigGalleryPicture = modalWindowGallery.querySelector(".gallery-pic_big_img");
+
+    index = (++index)%smallPicArray.length;
+    bigGalleryPicture.setAttribute("src", smallPicArray[index]);
+
+}
+
+function deleteActiveClassSmallPics() {
+    var smallElements = modalWindowGallery.querySelectorAll(".gallery-pic_small_img");
+
+    for (var i = 0; i < smallElements.length; i++) {
+        if(smallElements[i].classList.contains("active_pic")){
+            smallElements[i].classList.remove("active_pic");
+        }
+    }
+}
+
+function showSmallPicInBigBlock(clickedElement){
+    var smallElement = clickedElement.getAttribute("src");
+    var bigElement = modalWindowGallery.querySelector(".gallery-pic_big_img");
+
+    bigElement.setAttribute("src", smallElement);
+
+    deleteActiveClassSmallPics();
+
+    if (clickedElement.getAttribute("src") === modalWindowGallery.querySelector(".gallery-pic_big_img").getAttribute("src")){
+        clickedElement.classList.add("active_pic");
+    }
+}
+
+modalWindowGallery.addEventListener("click", function(event){
+    var target = event.target;
+
+    if (target.getAttribute("class") === "gallery-pic_small_img"){
+        showSmallPicInBigBlock(target);
+    }
+
+    switch (target.getAttribute("id") || target.parentNode.getAttribute("id")) {
+        case ("gallery-close"):{
+            modalWindowGallery.querySelector(".gallery-pic_big_img").setAttribute("src", bigElementSRCValue);
+            deleteActiveClassSmallPics();
+            overlay.classList.add("no-display");
+            modalWindowGallery.classList.add("no-display");
+            break;
+        }
+        case ("arrow-left"):{
+            actLeftButton();
+            break;
+        }
+        case ("arrow-right"):{
+            actRightButton();
+            break;
+        }
+    }
+});
+
+document.addEventListener("keydown", function (event) {
+    switch (event.key) {
+        case ("ArrowLeft"):{
+            actLeftButton();
+            break;
+        }
+        case ("ArrowRight"):{
+            actRightButton();
+            break;
+        }
+    }
+});
+
+//cart.html
+
+var cartLink = document.getElementById("cartLink");
+
+function addToLocalStorageCartElements() {
+    var serialObj;
+
+    serialObj = JSON.stringify(cartElements);
+    localStorage.setItem("cartElements", serialObj);
+}
+
+cartLink.addEventListener("click", addToLocalStorageCartElements);
 
