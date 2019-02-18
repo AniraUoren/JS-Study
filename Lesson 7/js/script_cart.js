@@ -120,6 +120,8 @@ function editCartElementQuantity(clickedElement, act){
     switch (act) {
         case ("add"):{
             cartElements[index].quantity ++;
+            return (cartElements[index].quantity);
+
             break;
         }
         case ("remove"):{
@@ -127,14 +129,14 @@ function editCartElementQuantity(clickedElement, act){
             if (cartElements[index].quantity === 0){
                 clickedElement.remove();
                 cartElements.splice(index, 1);
+            } else{
+                return (cartElements[index].quantity);
             }
             break;
         }
     }
 
     addToLocalStorageCartElements();
-
-    return (cartElements[index].quantity);
 }
 
 function isCartEmpty(){
